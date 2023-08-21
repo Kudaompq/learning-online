@@ -6,7 +6,16 @@
       <list>
         <option value="$PROJECT_DIR$/learning-online-parent/pom.xml" />
         <option value="$PROJECT_DIR$/learning-online-base/pom.xml" />
+        <option value="$PROJECT_DIR$/learn-online-content/pom.xml" />
+        <option value="$PROJECT_DIR$/learning-online-content/pom.xml" />
+        <option value="$PROJECT_DIR$/xuecheng-plus-generator/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/learn-online-content/pom.xml" />
+        <option value="$PROJECT_DIR$/learning-online-parent/learning-online-content/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_18" project-jdk-name="1.8" project-jdk-type="JavaSDK">
