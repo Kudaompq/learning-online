@@ -1,5 +1,6 @@
 package top.kudaompq.model;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 import lombok.ToString;
 
@@ -29,4 +30,12 @@ public class PageResult<T> implements Serializable {
         this.page = page;
         this.pageSize = pageSize;
     }
+
+    public PageResult(Page<T> page){
+        this.items = page.getRecords();
+        this.counts = page.getTotal();
+        this.page = page.getCurrent();
+        this.pageSize = page.getSize();
+    }
+
 }
