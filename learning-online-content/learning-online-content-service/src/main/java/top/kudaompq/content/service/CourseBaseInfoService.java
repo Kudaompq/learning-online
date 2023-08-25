@@ -1,5 +1,7 @@
 package top.kudaompq.content.service;
 
+import top.kudaompq.content.model.dto.AddCourseDto;
+import top.kudaompq.content.model.dto.CourseBaseInfoDto;
 import top.kudaompq.content.model.dto.QueryCourseParamsDto;
 import top.kudaompq.content.model.po.CourseBase;
 import top.kudaompq.model.PageParams;
@@ -19,4 +21,13 @@ public interface CourseBaseInfoService {
      */
     PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto courseParamsDto);
 
+    /**
+     * @description 添加课程基本信息
+     * @param companyId  教学机构id
+     * @param dto  课程基本信息
+     * @return com.xuecheng.content.model.dto.CourseBaseInfoDto
+     * @author Mr.M
+     * @date 2022/9/7 17:51
+     */
+    CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto dto);
 }

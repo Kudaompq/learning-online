@@ -1,7 +1,10 @@
 package top.kudaompq.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import top.kudaompq.content.model.dto.CourseCategoryTreeDto;
 import top.kudaompq.content.model.po.CourseCategory;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,4 +15,5 @@ import top.kudaompq.content.model.po.CourseCategory;
  */
 public interface CourseCategoryMapper extends BaseMapper<CourseCategory> {
 
+    public List<CourseCategoryTreeDto>  selectTreeNodes(String id);
 }
