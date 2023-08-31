@@ -1,4 +1,4 @@
-package top.kudaompq.model;
+package top.kudaompq.base.model;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;

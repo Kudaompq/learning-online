@@ -1,4 +1,4 @@
-package top.kudaompq.model;
+package top.kudaompq.base.model;
 
 import lombok.Data;
 import lombok.ToString;
