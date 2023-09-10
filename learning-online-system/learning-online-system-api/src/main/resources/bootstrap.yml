@@ -1,24 +1,19 @@
-server:
-  servlet:
-    context-path: /system
-  port: 63110
+
 #微服务配置
 spring:
   application:
-    name: system-api
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.101.128:3306/lo_system?serverTimezone=UTC&userUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-# 日志文件配置路径
-logging:
-  config: classpath:log4j2-dev.xml
+    name: system-service
+  cloud:
+    nacos:
+      server-addr: 192.168.101.128:8848
+      discovery:
+        namespace: 5911d33c-d5dc-412c-b7c9-0d099c5af347
+        group: learning-online-project
+      config:
+        namespace: 5911d33c-d5dc-412c-b7c9-0d099c5af347
+        group: learning-online-project
+        file-extension: yaml
+        refresh-enabled: true
+  profiles:
+    active: dev
 
-# swagger 文档配置
-swagger:
-  title: "学成在线系统管理"
-  description: "系统管理接口"
-  base-package: top.kudaompq.system
-  enabled: true
-  version: 1.0.0

@@ -8,16 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.kudaompq.base.exception.LeaningOnlineException;
-import top.kudaompq.content.mapper.CourseBaseMapper;
-import top.kudaompq.content.mapper.CourseCategoryMapper;
-import top.kudaompq.content.mapper.CourseMarketMapper;
+import top.kudaompq.content.mapper.*;
 import top.kudaompq.content.model.dto.AddCourseDto;
 import top.kudaompq.content.model.dto.CourseBaseInfoDto;
 import top.kudaompq.content.model.dto.EditCourseDto;
 import top.kudaompq.content.model.dto.QueryCourseParamsDto;
-import top.kudaompq.content.model.po.CourseBase;
-import top.kudaompq.content.model.po.CourseCategory;
-import top.kudaompq.content.model.po.CourseMarket;
+import top.kudaompq.content.model.po.*;
 import top.kudaompq.content.service.CourseBaseInfoService;
 import top.kudaompq.base.model.PageParams;
 import top.kudaompq.base.model.PageResult;
@@ -40,6 +36,16 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
     @Autowired
     private CourseCategoryMapper categoryMapper;
+
+    @Autowired
+    private CourseTeacherMapper teacherMapper;
+
+    @Autowired
+    private TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private TeachplanMediaMapper mediaMapper;
+
 
     @Override
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto courseParamsDto) {
@@ -163,6 +169,28 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         saveCourseMarket(courseMarket);
         // 查询课程信息
         return this.getCourseBaseInfo(courseId);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCourseById(Long courseId) {
+        CourseBase course = courseBaseMapper.selectById(courseId);
+        if (!course.getAuditStatus().equals("202002")){
+            LeaningOnlineException.cast("只有未提交的课程可以被删除");
+        }
+        courseBaseMapper.deleteById(courseId);
+        courseMarketMapper.deleteById(courseId);
+        // 课程师资
+        LambdaQueryWrapper<CourseTeacher> teacherWrapper = new LambdaQueryWrapper<>();
+        teacherWrapper.eq(CourseTeacher::getCourseId,courseId);
+        teacherMapper.delete(teacherWrapper);
+        // 课程计划
+        LambdaQueryWrapper<Teachplan> planWrapper = new LambdaQueryWrapper<>();
+        planWrapper.eq(Teachplan::getCourseId,courseId);
+        teachplanMapper.delete(planWrapper);
+        LambdaQueryWrapper<TeachplanMedia> mediaWrapper = new LambdaQueryWrapper<>();
+        mediaWrapper.eq(TeachplanMedia::getCourseId,courseId);
+        mediaMapper.delete(mediaWrapper);
     }
 
     /**
